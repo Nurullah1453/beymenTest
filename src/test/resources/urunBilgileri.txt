@@ -38,3 +38,9 @@ Fiyat: 10.950 TL
 Ürün Adı: Koyu Mavi Dış Gömlek
 Fiyat: 24.950 TL
 ----------------------
+Ürün Adı: Gri Keten Dış Gömlek
+Fiyat: 18.950 TL
+----------------------
+Ürün Adı: Gri Keten Dış Gömlek
+Fiyat: 18.950 TL
+----------------------

@@ -11,6 +11,7 @@ import utils.TestBase;
 import utils.TxtUtil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BeymenTest extends TestBase {
 
@@ -18,8 +19,8 @@ public class BeymenTest extends TestBase {
     public void fullTest() {
         HomePage home = new HomePage(driver);
         ProductPage productPage = new ProductPage(driver);
-        CartPage cart = new CartPage(driver);
         String fileText = "src/test/resources/urunBilgileri.txt";
+
 
         //Url'e gidelim
         driver.get("https://www.beymen.com");
@@ -45,10 +46,16 @@ public class BeymenTest extends TestBase {
         ReusableMethods.bekle(5);
         productPage.writeProductInfoToTxt("src/test/resources/urunBilgileri.txt");
         productPage.addToCart();
+        CartPage cart = new CartPage(driver);
+        boolean success = cart.increaseQuantity(2);
+        Assertions.assertTrue(success, "Ürün miktarı artırılamadı.");
+        System.out.println("Yeni fiyat: " + cart.getCartPrice());
+        cart.clickEmptyCart();
+
+        Assertions.assertTrue(cart.isCartEmpty(), "Sepet boş değil, ürün silinememiş olabilir.");
+
 
 /*
-
-
         String txtFiyat = TxtUtil.readLastPriceFromFile(fileText);
         String urunSayfaFiyat = productPage.getProductPrice();
         String sepetFiyat = cart.getCartPrice();
@@ -56,12 +63,7 @@ public class BeymenTest extends TestBase {
         assertEquals("Sepetteki fiyat, dosyadaki fiyatla uyuşmuyor!", txtFiyat, sepetFiyat);
 
  */
-        cart.add();
 
-        assertEquals("2", cart.getQuantity(), "Adet 2 değil");
-
-        cart.removeProduct();
-        Assertions.assertTrue(cart.isCartEmpty(), "Sepet boş değil");
 
     }
 }
